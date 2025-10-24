@@ -34,11 +34,14 @@ let currentQ = 0;
 
 function loadQuestion() {
   const currentQuestion = quizData[currentQ];
-  quizData[currentQuestion].options.forEach((options, index) => {
-    optionsButton = document.createElement("button");
+
+  currentQuestion.options.forEach((options, index) => {
+    const optionsButton = document.createElement("button");
     optionsButton.textContent = options;
     optionsButton.addEventListener("click", () => selectOption(index));
     optionsContainer.appendChild(optionsButton);
   });
 }
 loadQuestion();
+
+//forEach loop doesn't see question options

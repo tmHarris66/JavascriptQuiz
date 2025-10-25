@@ -30,18 +30,36 @@ const quizData = [
     answer: 3,
   },
 ];
-let currentQ = 0;
+let currentQ = 0; //Sets Current Question
 
+loadQuestion();
+//Displays the question and buttons
 function loadQuestion() {
   const currentQuestion = quizData[currentQ];
+  const questionText = document.createElement("p");
+  questionText.textContent = currentQuestion.question;
+  questionContainer.appendChild(questionText);
 
+  //Create and display buttons
   currentQuestion.options.forEach((options, index) => {
     const optionsButton = document.createElement("button");
+    optionsButton.className = "optionsButton";
     optionsButton.textContent = options;
     optionsButton.addEventListener("click", () => selectOption(index));
     optionsContainer.appendChild(optionsButton);
   });
+  currentQ++;
 }
-loadQuestion();
 
-//forEach loop doesn't see question options
+//Disable all option buttons when one is clicked
+function selectOption() {
+  const disableButton = document.getElementsByClassName("optionsButton");
+  for (let i = 0; i < disableButton.length; i++) {
+    disableButton[i].disabled = true;
+  }
+}
+const nextQuestionButton = document.getElementById("nextButton");
+function nextButtonClick() {
+  nextQuestionButton.addEventListener("click", loadQuestion);
+}
+//nextQuestionButton doesn't load the next question (check currentQ++)

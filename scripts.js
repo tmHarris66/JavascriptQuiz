@@ -7,7 +7,7 @@ const quizData = [
   {
     question: "Which option is used to create a conditional statement?",
     options: ["console.log", "shift", "if", "addEventListener"],
-    answer: 1,
+    answer: 2,
   },
   {
     question: "Which option can be used to create a loop?",
@@ -35,6 +35,9 @@ let currentQ = 0; //Sets Current Question
 loadQuestion();
 //Displays the question and buttons
 function loadQuestion() {
+  questionContainer.innerHTML = "";
+  optionsContainer.innerHTML = "";
+
   const currentQuestion = quizData[currentQ];
   const questionText = document.createElement("p");
   questionText.textContent = currentQuestion.question;
@@ -48,18 +51,30 @@ function loadQuestion() {
     optionsButton.addEventListener("click", () => selectOption(index));
     optionsContainer.appendChild(optionsButton);
   });
-  currentQ++;
 }
-
 //Disable all option buttons when one is clicked
 function selectOption() {
   const disableButton = document.getElementsByClassName("optionsButton");
   for (let i = 0; i < disableButton.length; i++) {
     disableButton[i].disabled = true;
+    if (i === quizData[currentQ].answer) {
+      disableButton[i].style.backgroundColor = "green";
+    } else {
+      disableButton[i].style.backgroundColor = "red";
+    }
   }
+  if (currentQ === quizData.length - 1) {
+    nextQuestionButton.style.display = "flex";
+    nextQuestionButton.textContent = "Submit Quiz";
+  } else {
+    nextQuestionButton.style.display = "flex";
+    nextQuestionButton.textContent = "Next Question";
+  }
+
+  currentQ++;
 }
 const nextQuestionButton = document.getElementById("nextButton");
 function nextButtonClick() {
   nextQuestionButton.addEventListener("click", loadQuestion);
 }
-//nextQuestionButton doesn't load the next question (check currentQ++)
+nextButtonClick();

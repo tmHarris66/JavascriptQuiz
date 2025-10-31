@@ -15,7 +15,11 @@ body {
   justify-content: center;
   align-items: center;
 }
-
+#quiz-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 #quiz-container,
 #score-container {
   width: 50%;
@@ -24,34 +28,43 @@ body {
   border-radius: 10px;
   background-color: #399ecf;
   height: 400px;
+  align-items: center;
+  justify-content: center;
 }
 #optionsContainer {
-  height: 25px;
-  width: 200px;
   margin: 20px;
   padding: 5px;
+  gap: 10px;
   display: flex;
   flex-direction: column;
+  border-radius: 8px;
+}
+#nextButton {
+  display: none;
 }
 .hidden {
   display: none;
 }
+#nextButton {
+  cursor: pointer;
 
-.optionsButton {
-  height: 25px;
-  width: 200px;
   padding: 5px;
   margin: 10px;
+  border-radius: 8px;
+}
+.optionsButton {
+  height: 25px;
+  padding: 5px;
+  margin: 10px;
+  cursor: pointer;
   background-color: #3b4d66;
   color: #ecf6f9;
   align-items: center;
   text-align: center;
   justify-content: center;
+  border-radius: 8px;
 }
 
 .optionsButton:hover {
   background: #373c3d;
-}
-.optionsButton:disabled {
-  background-color: #373c3d;
 }

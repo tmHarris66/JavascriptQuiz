@@ -92,7 +92,7 @@ function restartQuiz() {
   restartQuizButton.addEventListener("click", () => loadQuestion());
   nextQuestionButton.style.display = "none";
   score = 0;
-  currentQ = 0;
+  currentQ = -1;
 
   restartQuizButton.addEventListener("click", loadQuestion);
 }

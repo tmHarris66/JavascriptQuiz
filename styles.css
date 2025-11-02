@@ -39,15 +39,20 @@ body {
   flex-direction: column;
   border-radius: 8px;
 }
-#nextButton {
+
+#restartButton {
   display: none;
+  padding: 5px;
+  margin: 10px;
+  border-radius: 8px;
+  cursor: pointer;
 }
 .hidden {
   display: none;
 }
 #nextButton {
   cursor: pointer;
-
+  display: none;
   padding: 5px;
   margin: 10px;
   border-radius: 8px;

@@ -32,17 +32,17 @@ const quizData = [
 ];
 let currentQ = 0; //Sets Current Question
 
+const restartQuizButton = document.getElementById("restartButton");
 loadQuestion();
 //Displays the question and buttons
 function loadQuestion() {
   questionContainer.innerHTML = "";
   optionsContainer.innerHTML = "";
-
+  restartQuizButton.style.display = "none";
   const currentQuestion = quizData[currentQ];
   const questionText = document.createElement("p");
   questionText.textContent = currentQuestion.question;
   questionContainer.appendChild(questionText);
-
   //Create and display buttons
   currentQuestion.options.forEach((options, index) => {
     const optionsButton = document.createElement("button");
@@ -69,13 +69,13 @@ function selectOption(selectedIndex) {
   if (selectedIndex === correctIndex) {
     score++;
   }
-  if (currentQ === quizData.length - 1) {
-    nextQuestionButton.style.display = "flex";
-    nextQuestionButton.textContent = "Submit Quiz";
-    nextQuestionButton.addEventListener("click", () => restartQuiz());
-  } else {
+  if (currentQ < quizData.length - 1) {
     nextQuestionButton.style.display = "flex";
     nextQuestionButton.textContent = "Next Question";
+  } else {
+    nextQuestionButton.style.display = "flex";
+    nextQuestionButton.textContent = "Submit Quiz";
+    restartQuiz();
   }
 
   currentQ++;
@@ -87,11 +87,16 @@ function nextButtonClick() {
 nextButtonClick();
 function restartQuiz() {
   questionContainer.textContent = `You scored: ${score}/5`;
-  nextQuestionButton.innerHTML = "Restart Quiz?";
-  nextQuestionButton.addEventListener("click", () => resetScore());
+  restartQuizButton.style.display = "flex";
+  restartQuizButton.innerHTML = "Restart Quiz?";
+  restartQuizButton.addEventListener("click", () => loadQuestion());
+  nextQuestionButton.style.display = "none";
+  score = 0;
+  currentQ = 0;
+
+  restartQuizButton.addEventListener("click", loadQuestion);
 }
 function resetScore() {
-  score = 0;
   if (currentQ === quizData.length - 1) {
     currentQ = 0;
 

@@ -52,20 +52,27 @@ function loadQuestion() {
     optionsContainer.appendChild(optionsButton);
   });
 }
+let score = 0;
 //Disable all option buttons when one is clicked
-function selectOption() {
+function selectOption(selectedIndex) {
   const disableButton = document.getElementsByClassName("optionsButton");
+  const correctIndex = quizData[currentQ].answer;
   for (let i = 0; i < disableButton.length; i++) {
     disableButton[i].disabled = true;
-    if (i === quizData[currentQ].answer) {
-      disableButton[i].style.backgroundColor = "green";
+    if (selectedIndex === correctIndex) {
+      disableButton[selectedIndex].style.backgroundColor = "green";
     } else {
-      disableButton[i].style.backgroundColor = "red";
+      disableButton[selectedIndex].style.backgroundColor = "red";
+      disableButton[correctIndex].style.backgroundColor = "green";
     }
+  }
+  if (selectedIndex === correctIndex) {
+    score++;
   }
   if (currentQ === quizData.length - 1) {
     nextQuestionButton.style.display = "flex";
     nextQuestionButton.textContent = "Submit Quiz";
+    nextQuestionButton.addEventListener("click", () => restartQuiz());
   } else {
     nextQuestionButton.style.display = "flex";
     nextQuestionButton.textContent = "Next Question";
@@ -78,3 +85,21 @@ function nextButtonClick() {
   nextQuestionButton.addEventListener("click", loadQuestion);
 }
 nextButtonClick();
+function restartQuiz() {
+  questionContainer.textContent = `You scored: ${score}/5`;
+  nextQuestionButton.innerHTML = "Restart Quiz?";
+  nextQuestionButton.addEventListener("click", () => resetScore());
+}
+function resetScore() {
+  score = 0;
+  if (currentQ === quizData.length - 1) {
+    currentQ = 0;
+
+    questionContainer.textContent = "";
+    nextQuestionButton.textContent = "";
+    loadQuestion();
+  } else {
+    loadQuestion();
+  }
+}
+//Need to figure out how to display questions once quiz is restarted.

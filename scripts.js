@@ -96,15 +96,5 @@ function restartQuiz() {
 
   restartQuizButton.addEventListener("click", loadQuestion);
 }
-function resetScore() {
-  if (currentQ === quizData.length - 1) {
-    currentQ = 0;
 
-    questionContainer.textContent = "";
-    nextQuestionButton.textContent = "";
-    loadQuestion();
-  } else {
-    loadQuestion();
-  }
-}
 //Need to figure out how to display questions once quiz is restarted.
